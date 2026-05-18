@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: global-db-config
+  namespace: default
+data:
+  video_db_url: "jdbc:postgresql://youtube-clone-db.ctgwgw44im6x.ap-south-1.rds.amazonaws.com/video_db"
+  auth_db_url: "jdbc:postgresql://youtube-clone-db.ctgwgw44im6x.ap-south-1.rds.amazonaws.com/auth_db"
+  s3_bucket_name: "youtube-clone-video-storage-27"
