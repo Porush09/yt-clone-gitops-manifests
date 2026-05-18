@@ -1,0 +1,87 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{path.basename}}
+  namespace: default
+  labels:
+    app: {{path.basename}}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{path.basename}}
+  template:
+    metadata:
+      labels:
+        app: {{path.basename}}
+    spec:
+      containers:
+      - name: {{path.basename}}
+        # Dynamically pulls the matching image from your ECR repository
+        image: 455646290812.dkr.ecr.ap-south-1.amazonaws.com/yt-{{path.basename}}:latest
+        imagePullPolicy: Always
+        # Environment variables are mapped using your application.properties placeholders
+        env:
+        # 1. Service Discovery
+        - name: EUREKA_URL
+          value: "http://service-registry:8761/eureka/"
+
+        # 2. Database URL Configuration (From ConfigMap)
+        - name: VIDEO_DB_URL
+          valueFrom:
+            configMapKeyRef:
+              name: global-db-config
+              key: video_db_url
+        - name: AUTH_DB_URL
+          valueFrom:
+            configMapKeyRef:
+              name: global-db-config
+              key: auth_db_url
+
+        # 3. Secure Database Credentials (From Secret)
+        - name: DB_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: rds-credentials
+              key: username
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: rds-credentials
+              key: password
+
+        # 4. AWS S3 Credentials (From Secret)
+        - name: AWS_REGION
+          value: "ap-south-1"
+        - name: AWS_S3_BUCKET
+          valueFrom:
+            configMapKeyRef:
+              name: global-db-config
+              key: s3_bucket_name
+        - name: AWS_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: aws-credentials
+              key: access_key
+        - name: AWS_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: aws-credentials
+              key: secret_key
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{path.basename}}
+  namespace: default
+  labels:
+    app: {{path.basename}}
+spec:
+  ports:
+  - port: 80
+    # Spring Boot handles mapping this to the actual service ports automatically
+    targetPort: 8080 
+    protocol: TCP
+  selector:
+    app: {{path.basename}}
+  type: ClusterIP
