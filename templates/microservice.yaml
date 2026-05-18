@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{path.basename}}
+  name: "{{path.basename}}"
   namespace: default
   labels:
-    app: {{path.basename}}
+    app: "{{path.basename}}"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{path.basename}}
+      app: "{{path.basename}}"
   template:
     metadata:
       labels:
-        app: {{path.basename}}
+        app: "{{path.basename}}"
     spec:
       containers:
-      - name: {{path.basename}}
+      - name: "{{path.basename}}"
         # Dynamically pulls the matching image from your ECR repository
-        image: 455646290812.dkr.ecr.ap-south-1.amazonaws.com/yt-{{path.basename}}:latest
+        image: "455646290812.dkr.ecr.ap-south-1.amazonaws.com/yt-{{path.basename}}:latest"
         imagePullPolicy: Always
         # Environment variables are mapped using your application.properties placeholders
         env:
@@ -72,10 +72,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{path.basename}}
+  name: "{{path.basename}}"
   namespace: default
   labels:
-    app: {{path.basename}}
+    app: "{{path.basename}}"
 spec:
   ports:
   - port: 80
@@ -83,5 +83,5 @@ spec:
     targetPort: 8080 
     protocol: TCP
   selector:
-    app: {{path.basename}}
+    app: "{{path.basename}}"
   type: ClusterIP
