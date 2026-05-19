@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: search-service
+  namespace: default
+  labels:
+    app: search-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: search-service
+  template:
+    metadata:
+      labels:
+        app: search-service
+    spec:
+      containers:
+      - name: search-service
+        image: 455646290812.dkr.ecr.ap-south-1.amazonaws.com/yt-search-service:latest
+        imagePullPolicy: Always
+        env:
+        - name: EUREKA_URL
+          value: "http://service-registry:8761/eureka/"
+        - name: ELASTICSEARCH_URIS
+          value: "http://elasticsearch:9200"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: search-service
+  namespace: default
+  labels:
+    app: search-service
+spec:
+  ports:
+  - port: 80
+    targetPort: 8080 
+    protocol: TCP
+  selector:
+    app: search-service
+  type: ClusterIP

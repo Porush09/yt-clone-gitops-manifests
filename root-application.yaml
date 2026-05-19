@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: yt-clone-production-apps
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/Porush09/yt-clone-gitops-manifests.git'
+    targetRevision: HEAD
+    path: apps # <-- Tells ArgoCD to look inside the apps folder and apply every file it finds
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

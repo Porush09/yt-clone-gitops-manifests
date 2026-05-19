@@ -1,44 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "{{path.basename}}"
+  name: video-service
   namespace: default
   labels:
-    app: "{{path.basename}}"
+    app: video-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: "{{path.basename}}"
+      app: video-service
   template:
     metadata:
       labels:
-        app: "{{path.basename}}"
+        app: video-service
     spec:
       containers:
-      - name: "{{path.basename}}"
-        # Dynamically pulls the matching image from your ECR repository
-        image: "455646290812.dkr.ecr.ap-south-1.amazonaws.com/yt-{{path.basename}}:latest"
+      - name: video-service
+        image: 455646290812.dkr.ecr.ap-south-1.amazonaws.com/yt-video-service:latest
         imagePullPolicy: Always
-        # Environment variables are mapped using your application.properties placeholders
         env:
-        # 1. Service Discovery
         - name: EUREKA_URL
           value: "http://service-registry:8761/eureka/"
-
-        # 2. Database URL Configuration (From ConfigMap)
         - name: VIDEO_DB_URL
           valueFrom:
             configMapKeyRef:
               name: global-db-config
               key: video_db_url
-        - name: AUTH_DB_URL
-          valueFrom:
-            configMapKeyRef:
-              name: global-db-config
-              key: auth_db_url
-
-        # 3. Secure Database Credentials (From Secret)
         - name: DB_USERNAME
           valueFrom:
             secretKeyRef:
@@ -49,8 +37,6 @@ spec:
             secretKeyRef:
               name: rds-credentials
               key: password
-
-        # 4. AWS S3 Credentials (From Secret)
         - name: AWS_REGION
           value: "ap-south-1"
         - name: AWS_S3_BUCKET
@@ -72,16 +58,15 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: "{{path.basename}}"
+  name: video-service
   namespace: default
   labels:
-    app: "{{path.basename}}"
+    app: video-service
 spec:
   ports:
   - port: 80
-    # Spring Boot handles mapping this to the actual service ports automatically
     targetPort: 8080 
     protocol: TCP
   selector:
-    app: "{{path.basename}}"
+    app: video-service
   type: ClusterIP
