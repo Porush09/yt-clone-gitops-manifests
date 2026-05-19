@@ -54,12 +54,12 @@ spec:
           valueFrom:
             secretKeyRef:
               name: aws-credentials
-              key: access_key
+              key: aws_access_key_id
         - name: AWS_SECRET_KEY
           valueFrom:
             secretKeyRef:
               name: aws-credentials
-              key: secret_key
+              key: aws_secret_access_key
 ---
 apiVersion: v1
 kind: Service
