@@ -20,7 +20,7 @@ spec:
         image: 455646290812.dkr.ecr.ap-south-1.amazonaws.com/yt-frontend-service:latest
         imagePullPolicy: Always
         env:
-        - name: EUREKA_URL
+        - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
           value: "http://service-registry:8761/eureka/"
 ---
 apiVersion: v1
