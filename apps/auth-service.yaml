@@ -26,9 +26,6 @@ spec:
           value: "auth-service" # Matches the k8s Service name exactly
         - name: EUREKA_INSTANCE_PREFER_IP_ADDRESS
           value: "false" # Force it to use the stable hostname string
-        # Force Eureka to advertise the Kubernetes Service port (80)
-        - name: EUREKA_INSTANCE_NON_SECURE_PORT
-          value: 80
         - name: AUTH_DB_URL
           valueFrom:
             configMapKeyRef:
