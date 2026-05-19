@@ -20,14 +20,13 @@ spec:
         image: 455646290812.dkr.ecr.ap-south-1.amazonaws.com/yt-search-service:latest
         imagePullPolicy: Always
         env:
-        - name: EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE
+        # Corrected format: No extra underscores, matches standard spring properties
+        - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
           value: "http://service-registry:8761/eureka/"
+          
+        # Strict Uppercase format to force IP registration
         - name: EUREKA_INSTANCE_PREFER_IP_ADDRESS
           value: "true"
-        - name: EUREKA_INSTANCE_HOSTNAME
-          valueFrom:
-           fieldRef:
-            fieldPath: status.podIP
         
         # Overriding the default localhost:9200 address for Spring Boot
         - name: SPRING_ELASTICSEARCH_URIS
