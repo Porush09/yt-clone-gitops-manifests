@@ -20,13 +20,23 @@ spec:
         image: 455646290812.dkr.ecr.ap-south-1.amazonaws.com/yt-frontend-service:latest
         imagePullPolicy: Always
         env:
-        # Corrected format: No extra underscores, matches standard spring properties
+        # 1. The Correct Service Registry endpoint location
         - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
           value: "http://service-registry:8761/eureka/"
-          
-        # Strict Uppercase format to force IP registration
+        
+        # 2. FORCE Spring to read the relaxed property matching layout
+        - name: SPRING_CLOUD_CLIENT_IP_ADDRESS
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        
+        # 3. Force Eureka to map the address metadata straight to the raw IP value
         - name: EUREKA_INSTANCE_PREFER_IP_ADDRESS
           value: "true"
+        - name: EUREKA_INSTANCE_HOSTNAME
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
 ---
 apiVersion: v1
 kind: Service
