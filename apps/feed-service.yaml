@@ -26,6 +26,9 @@ spec:
           value: "feed-service"
         - name: EUREKA_INSTANCE_PREFER_IP_ADDRESS
           value: "false"
+        # Force Eureka to advertise the Kubernetes Service port (80)
+        - name: EUREKA_INSTANCE_NON_SECURE_PORT
+          value: "80"
         - name: VIDEO_DB_URL
           valueFrom:
             configMapKeyRef:

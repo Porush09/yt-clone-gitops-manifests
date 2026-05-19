@@ -26,6 +26,9 @@ spec:
           value: "search-service"
         - name: EUREKA_INSTANCE_PREFER_IP_ADDRESS
           value: "false"
+        # Force Eureka to advertise the Kubernetes Service port (80)
+        - name: EUREKA_INSTANCE_NON_SECURE_PORT
+          value: "80"
         - name: SPRING_ELASTICSEARCH_URIS
           value: "http://elasticsearch:9200"
         - name: SPRING_DATA_ELASTICSEARCH_CLIENT_URIS
