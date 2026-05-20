@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: frontend-service
-        image: 455646290812.dkr.ecr.ap-south-1.amazonaws.com/yt-frontend-service:latest
+        image: 455646290812.dkr.ecr.ap-south-1.amazonaws.com/yt-frontend-service:v4
         imagePullPolicy: Always
         env:
         - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
