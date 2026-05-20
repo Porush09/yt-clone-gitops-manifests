@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
       - name: service-registry
-        image: 455646290812.dkr.ecr.ap-south-1.amazonaws.com/yt-service-registry:latest
+        image: 455646290812.dkr.ecr.ap-south-1.amazonaws.com/yt-service-registry:v4
         ports:
         - containerPort: 8761
         env:
