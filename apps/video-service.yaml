@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: video-service
-        image: 455646290812.dkr.ecr.ap-south-1.amazonaws.com/yt-video-service:v3
+        image: 455646290812.dkr.ecr.ap-south-1.amazonaws.com/yt-video-service:v4
         imagePullPolicy: Always
         env:
         - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
