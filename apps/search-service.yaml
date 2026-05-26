@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: search-service
-        image: 455646290812.dkr.ecr.ap-south-1.amazonaws.com/yt-search-service:v3
+        image: 455646290812.dkr.ecr.ap-south-1.amazonaws.com/yt-search-service:v4
         imagePullPolicy: Always
         env:
         - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
