@@ -14,11 +14,21 @@ spec:
     metadata:
       labels:
         app: feed-service
+      annotations:
+        oneagent.dynatrace.com/inject: "true"
     spec:
       containers:
       - name: feed-service
         image: 455646290812.dkr.ecr.ap-south-1.amazonaws.com/yt-feed-service:v9
         imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+
         env:
         - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
           value: "http://service-registry:8761/eureka/"
