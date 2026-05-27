@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: frontend-service
-          image: 455646290812.dkr.ecr.ap-south-1.amazonaws.com/yt-frontend-service:v5
+          image: 455646290812.dkr.ecr.ap-south-1.amazonaws.com/yt-frontend-service:v2
           imagePullPolicy: Always
           resources:
             requests:
