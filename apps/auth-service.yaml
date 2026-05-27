@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: auth-service
-        image: 455646290812.dkr.ecr.ap-south-1.amazonaws.com/yt-auth-service:v7
+        image: 455646290812.dkr.ecr.ap-south-1.amazonaws.com/yt-auth-service:v3
         imagePullPolicy: Always
         resources:
           requests:
