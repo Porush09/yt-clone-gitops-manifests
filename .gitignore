@@ -4,3 +4,4 @@ global-db-config.yaml
 dynakube.yaml
 eks-cluster-config.yaml
 .DS_Store
+.DS_Store
