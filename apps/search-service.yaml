@@ -14,7 +14,7 @@ spec:
     metadata:
       labels:
         app: search-service
-       annotations:
+      annotations:
         oneagent.dynatrace.com/inject: "true"
     spec:
       containers:
