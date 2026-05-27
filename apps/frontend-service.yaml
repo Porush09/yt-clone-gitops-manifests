@@ -14,28 +14,27 @@ spec:
     metadata:
       labels:
         app: frontend-service
-       annotations:
+      annotations:
         oneagent.dynatrace.com/inject: "true"
     spec:
       containers:
-      - name: frontend-service
-        image: 455646290812.dkr.ecr.ap-south-1.amazonaws.com/yt-frontend-service:v1
-        imagePullPolicy: Always
-        resources:
-          requests:
-            memory: "512Mi"
-            cpu: "250m"
-          limits:
-            memory: "1Gi"
-            cpu: "500m"
-
-        env:
-        - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
-          value: "http://service-registry:8761/eureka/"
-        - name: EUREKA_INSTANCE_HOSTNAME
-          value: "frontend-service"
-        - name: EUREKA_INSTANCE_PREFER_IP_ADDRESS
-          value: "false"
+        - name: frontend-service
+          image: 455646290812.dkr.ecr.ap-south-1.amazonaws.com/yt-frontend-service:v5
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
+          env:
+            - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+              value: "http://service-registry:8761/eureka/"
+            - name: EUREKA_INSTANCE_HOSTNAME
+              value: "frontend-service"
+            - name: EUREKA_INSTANCE_PREFER_IP_ADDRESS
+              value: "false"
 ---
 apiVersion: v1
 kind: Service
@@ -46,9 +45,9 @@ metadata:
     app: frontend-service
 spec:
   ports:
-  - port: 80
-    targetPort: 8080 
-    protocol: TCP
+    - port: 80
+      targetPort: 8080
+      protocol: TCP
   selector:
     app: frontend-service
   type: LoadBalancer
