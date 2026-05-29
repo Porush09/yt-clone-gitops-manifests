@@ -17,6 +17,8 @@ spec:
       annotations:
         oneagent.dynatrace.com/inject: "true"
     spec:
+      imagePullSecrets:
+        - name: ecr-secret
       containers:
       - name: auth-service
         image: 455646290812.dkr.ecr.ap-south-1.amazonaws.com/auth-service:latest
