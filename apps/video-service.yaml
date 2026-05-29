@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: video-service
-        image: 455646290812.dkr.ecr.ap-south-1.amazonaws.com/yt-video-service:v1
+        image: 455646290812.dkr.ecr.ap-south-1.amazonaws.com/video-service:latest
         imagePullPolicy: Always
         resources:
           requests:
