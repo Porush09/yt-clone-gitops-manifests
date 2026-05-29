@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: auth-service
-        image: localhost:50409/yt-auth-service:v1
+        image: localhost:5000/yt-auth-service:v1
         imagePullPolicy: Always
         resources:
           requests:
